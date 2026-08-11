@@ -4,14 +4,15 @@ class Solution {
         
         int size = brown + yellow;
         
-        for (int i = 3; i < brown; i++) {
-            if (size % i != 0) continue;
+        for (int h = 3; h < brown; h++) {
+            if (size % h != 0) continue;
             
-            int h = size / i;
+            int w = size / h;
             
-            if ((i - 2) * (h - 2) == yellow) {
-                answer[0] = i;
+            if ((h - 2) * (w - 2) == yellow) {
+                answer[0] = w;
                 answer[1] = h;
+                break;
             }
         }
         
