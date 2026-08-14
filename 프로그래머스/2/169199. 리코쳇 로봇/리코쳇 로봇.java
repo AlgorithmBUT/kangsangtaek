@@ -1,5 +1,17 @@
 import java.util.*;
 
+class Node {
+    int x;
+    int y;
+    int count;
+    
+    Node(int x, int y, int count) {
+        this.x = x;
+        this.y = y;
+        this.count = count;
+    }
+}
+
 class Solution {
     
     int[] dx = { -1, 1, 0, 0 };
@@ -23,16 +35,16 @@ class Solution {
             }
         }
         
-        Queue<int[]> q = new LinkedList<>();
+        Queue<Node> q = new LinkedList<>();
         boolean[][] visited = new boolean[n][m];
-        q.offer(new int[] { startX, startY, 0 });
+        q.offer(new Node(startX, startY, 0));
         visited[startX][startY] = true;
         
         while (!q.isEmpty()) {
-            int[] cur = q.poll();
-            int x = cur[0];
-            int y = cur[1];
-            int count = cur[2];
+            Node cur = q.poll();
+            int x = cur.x;
+            int y = cur.y;
+            int count = cur.count;
             
             if (board[x].charAt(y) == 'G') return count;
             
@@ -51,7 +63,7 @@ class Solution {
                 
                 if (!visited[nx][ny]) {
                     visited[nx][ny] = true;
-                    q.offer(new int[] { nx, ny, count + 1 });
+                    q.offer(new Node(nx, ny, count + 1));
                 }
             }
         }
