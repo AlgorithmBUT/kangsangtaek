@@ -51,6 +51,8 @@ public class Solution {
 	}
 	
 	static void dfs(int depth, int connected, int length) {
+        if (connected + (cores.size() - depth) < maxConnected) return;
+        
 		if (depth == cores.size()) {
 			if (connected > maxConnected) {
 				maxConnected = connected;
