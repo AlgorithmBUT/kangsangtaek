@@ -23,44 +23,38 @@ class Solution {
             int far = Math.max(dIdx, pIdx);
             
             // 배달
-            int cur = cap;
-            while (dIdx >= 0 && cur > 0) {
-                if (deliveries[dIdx] == 0) {
-                    dIdx--;
-                    continue;
-                }
-                
-                if (deliveries[dIdx] > cur) {
-                    deliveries[dIdx] -= cur;
-                    cur = 0;
-                } else {
-                    cur -= deliveries[dIdx];
-                    deliveries[dIdx] = 0;
-                    dIdx--;
-                }
-            }
+            dIdx = process(deliveries, dIdx, cap);
             
             // 수거
-            cur = cap;
-            while (pIdx >= 0 && cur > 0) {
-                if (pickups[pIdx] == 0) {
-                    pIdx--;
-                    continue;
-                }
-                
-                if (pickups[pIdx] > cur) {
-                    pickups[pIdx] -= cur;
-                    cur = 0;
-                } else {
-                    cur -= pickups[pIdx];
-                    pickups[pIdx] = 0;
-                    pIdx--;
-                }
-            }
+            pIdx = process(pickups, pIdx, cap);
             
             answer += (long) (far + 1) * 2;
         }
         
         return answer;
+    }
+    
+    private int process(int[] boxes, int idx, int cap) {
+        while (idx >= 0 && cap > 0) {
+            // 해당 위치의 값이 0이면 넘어가기
+            if (boxes[idx] == 0) {
+                idx--;
+                continue;
+            }
+            
+            // 해당 위치가 cap보다 클 경우
+            if (boxes[idx] > cap) {
+                boxes[idx] -= cap;
+                cap = 0;
+            }
+            // 해당 위치가 cap보다 작을 경우
+            else {
+                cap -= boxes[idx];
+                boxes[idx] = 0;
+                idx--;
+            }
+        }
+        
+        return idx;
     }
 }
